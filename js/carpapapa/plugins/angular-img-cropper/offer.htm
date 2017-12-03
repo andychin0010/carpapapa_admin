@@ -1,0 +1,316 @@
+
+<!-- saved from url=(0100)http://localhost:8082/offer.html#?id=30&customerName=ASDF&salesName=ASFD&discount=undefined&apr=5.99 -->
+<html><script>(function main() {
+    // Create enabled event
+    function fireEnabledEvent() {
+        // If gli exists, then we are already present and shouldn't do anything
+        if (!window.gli) {
+            setTimeout(function () {
+                var enabledEvent = document.createEvent("Event");
+                enabledEvent.initEvent("WebGLEnabledEvent", true, true);
+                document.dispatchEvent(enabledEvent);
+            }, 0);
+        } else {
+            //console.log("WebGL Inspector already embedded on the page - disabling extension");
+        }
+    };
+
+    // Grab the path root from the extension
+    document.addEventListener("WebGLInspectorReadyEvent", function (e) {
+        var pathElement = document.getElementById("__webglpathroot");
+        if (window["gliloader"]) {
+            gliloader.pathRoot = pathElement.innerText;
+        } else {
+            // TODO: more?
+            window.gliCssUrl = pathElement.innerText + "gli.all.css";
+        }
+    }, false);
+
+    // Rewrite getContext to snoop for webgl
+    var originalGetContext = HTMLCanvasElement.prototype.getContext;
+    if (!HTMLCanvasElement.prototype.getContextRaw) {
+        HTMLCanvasElement.prototype.getContextRaw = originalGetContext;
+    }
+    HTMLCanvasElement.prototype.getContext = function () {
+        var ignoreCanvas = this.internalInspectorSurface;
+        if (ignoreCanvas) {
+            return originalGetContext.apply(this, arguments);
+        }
+
+        var result = originalGetContext.apply(this, arguments);
+        if (result == null) {
+            return null;
+        }
+
+        var contextNames = ["moz-webgl", "webkit-3d", "experimental-webgl", "webgl", "3d"];
+        var requestingWebGL = contextNames.indexOf(arguments[0]) != -1;
+        if (requestingWebGL) {
+            // Page is requesting a WebGL context!
+            fireEnabledEvent(this);
+
+            // If we are injected, inspect this context
+            if (window.gli) {
+                if (gli.host.inspectContext) {
+                    // TODO: pull options from extension
+                    result = gli.host.inspectContext(this, result);
+                    // NOTE: execute in a timeout so that if the dom is not yet
+                    // loaded this won't error out.
+                    window.setTimeout(function() {
+                        var hostUI = new gli.host.HostUI(result);
+                        result.hostUI = hostUI; // just so we can access it later for debugging
+                    }, 0);
+                }
+            }
+        }
+
+        return result;
+    };
+})();</script><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+        <style>
+            body {
+                font-size: 0.15in
+            }
+            @media print {
+                @page {
+                    size: A4 portrait;
+                }
+            }
+            table .title {
+                text-align:center;
+                font-weight: bold;
+            }
+            td > p {
+                margin:0;
+            }
+            div.cp-table {
+                width:100%;
+                display:table;
+                margin:0;
+            }
+            td div.cp-row {
+                display:table-row
+            }
+            div.row div.cp-cell {
+                display:table-cell;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            table {
+                border-collapse:collapse;
+            }
+            table, th, td {
+                border:1px solid grey;
+            }
+        </style>
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    </head>
+    <body ng-app="carpapapa" ng-controller="summaryController" style="padding-top:0.5in; font-family:Arial,&#39;Helvetica Neue&#39;,Helvetica,sans-serif; position:relative;" class="ng-scope">
+        <div class="container" style="font-size:0.15in">
+            <div style="width:100%">
+                <p>Prepared for: <span style="font-size:0.24in;font-weight:bold;vertical-align:text-top;margin-left:5px" class="ng-binding">ASDF</span></p>
+                <div class="ng-binding">
+                    Date: 09/13/2017
+                </div>
+                <div>
+                    Manager: JEFF LAM
+                </div>
+                <div class="ng-binding">
+                    Salesperson: ASFD
+                </div>
+                <img style="position:absolute; right:0in; top:0.5in; max-height:1.1in; max-width:1.1in" src="./offer_files/CARPAPAPA_LOGO.png">
+            </div>
+            <br>
+            <br>
+            <div class="row" style="margin-top:20px">
+                <table style="font-size:0.15in;width:100%">
+                    <tbody><tr style="display:none">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  <tr>
+                      <td colspan="2" style="width:50%" class="title">VEHICLE</td>
+                      <td colspan="2" style="width:50%" class="title">VEHICLE OPTIONS</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2">
+                          <div class="cp-table">
+                              <div class="cp-row"><div class="cp-cell" style="width:15%">Vehicle:</div><div class="cp-cell ng-binding">2014 MERCEDES BENZ CLA250</div></div>
+                              <div class="cp-row"><div class="cp-cell" style="width:15%">Miles:</div><div class="cp-cell ng-binding">19,097</div></div>
+                              <br>
+                          </div>
+                      </td>
+                      <td colspan="2" rowspan="3" style="vertical-align:top">
+                          <!-- ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- LED Taillights</div></div><!-- end ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- Daytime Running Light</div></div><!-- end ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- LED Headlights</div></div><!-- end ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- 17" Wheels</div></div><!-- end ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- Bluetooth</div></div><!-- end ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- Memory Seat</div></div><!-- end ngRepeat: option in data.options --><div class="cp-row ng-scope" ng-repeat="option in data.options"><div class="cp-cell ng-binding">- Engine Start-Stop System</div></div><!-- end ngRepeat: option in data.options -->
+                          <br>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" class="title">PURCHASE OPTION</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2">
+                          <div class="cp-table">
+                              <div class="cp-row"><div class="cp-cell">Vehicle Price:</div><div class="cp-cell ng-binding" align="right">$26,000</div></div>
+                              <!-- ngIf: discount -->
+                              <!-- ngIf: discount -->
+                              <br>
+                              <div class="cp-row"><div class="cp-cell">Sales Tax (%10.5)</div><div class="cp-cell ng-binding" align="right">+ $2,730</div></div>
+                              <div class="cp-row"><div class="cp-cell">Registration Fee</div><div class="cp-cell ng-binding" align="right">+ $500</div></div>
+                              <div class="cp-row"><div class="cp-cell">Document Fee</div><div class="cp-cell ng-binding" align="right" style="border-bottom:solid 1px">+ $300</div></div>
+                              <div class="cp-row"><div class="cp-cell">Balance Due:</div><div class="cp-cell ng-binding" align="right">$29,530</div></div>
+                              <br>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="4" class="title">FINANCE OPTIONS</td>
+                  </tr>
+                  <tr>
+                      <td class="title" style="vertical-align:middle">Cash Down</td>
+                      <td class="title">
+                          <p>36 months</p>
+                          <p style="font-weight:normal;font-size:0.8em" class="ng-binding">(APR:5.99%)</p>
+                      </td>
+                      <td class="title">
+                          <p>48 months</p>
+                          <p style="font-weight:normal;font-size:0.8em" class="ng-binding">(APR:5.99%)</p>
+                      </td>
+                      <td class="title">
+                          <p>54 months</p>
+                          <p style="font-weight:normal;font-size:0.8em" class="ng-binding">(APR:5.99%)</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="tight-center" style="padding:0;text-align:center">$3,000</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$700</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$540</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$487</td>
+                  </tr>
+                  <tr>
+                      <td class="tight-center" style="padding:0;text-align:center">$5,000</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$639</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$493</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$445</td>
+                  </tr>
+                  <tr>
+                      <td class="tight-center" style="padding:0;text-align:center">$7,500</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$563</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$434</td>
+                      <td class="tight-center ng-binding" style="padding:0;text-align:center">$392</td>
+                  </tr>
+                </tbody></table>
+                <p>This summary is provided to you, our customer, to assist you in better understanding the pricing available. Amounts above are ESTIMATES ONLY and may vary
+                    based on approved credit, applicable taxes, vehicle selection, trade value(s), estimated payoff, eligibility for rebates and other factors particular to
+                    your transaction. Final payments and terms may vary. Customer agrees to pay the difference, if any, in the amount of the trade lien payoff.
+                </p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div style="float:left">
+                <p style="margin:0">x____________________________________</p>
+                <p>&nbsp;&nbsp;Buyer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</p>
+            </div>
+            <div style="float:right">
+                <p style="margin:0">x____________________________________</p>
+                <p>&nbsp;&nbsp;Salesperson&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;Date</p>
+            </div>
+
+            <div style="position:absolute;bottom:0.1in;width:100%">
+                <div style="font-size:0.15in">
+                    <div>© CARPAPAPA AUTO GROUP - 1111 24TH AVE Seattle, WA, 98122</div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./offer_files/angular.min.js"></script>
+        <script src="./offer_files/jquery-3.1.1.min.js"></script>
+        <script src="./offer_files/bootstrap.min.js"></script>
+        <script>
+            var carpapapa = angular.module("carpapapa", []);
+            carpapapa.controller("summaryController", function($scope, $http, $location) {
+                // console.log('testing', $location.search().id);
+                console.log('cName', $location.search().customerName);
+                console.log('sName', $location.search().salesName);
+                console.log('discount', $location.search().discount);
+                console.log('apr', $location.search().apr);
+                var DEFAULT_APR = 5.99;
+
+                $scope.apr = $location.search().apr ? $location.search().apr : DEFAULT_APR;
+                $scope.customerName = $location.search().customerName;
+                $scope.salesName = $location.search().salesName;
+                $scope.discount = $location.search().discount;
+
+                var discount = $location.search().discount;
+                if (!discount || discount === 0 || discount === 'undefined') {
+                    $scope.discount = null;
+                }
+
+                $scope.registrationFee=500;
+                $scope.documentFee=300;
+                $scope.tax=0;
+                $scope.today=new Date();
+
+                $http({
+                    method: 'GET',
+                    url: 'http://www.carpapapa.com:8081/products/' + $location.search().id
+                }).then(function success(response) {
+                    console.log('data', response.data);
+
+                    $scope.data = response.data;
+                    $scope.final = $scope.data.price - $scope.discount;
+                    $scope.tax = $scope.final * .105;
+                    $scope.total = $scope.final + $scope.tax + $scope.registrationFee + $scope.documentFee;
+                    $scope.brandLogo = '/images/logos/' + response.data.make.toUpperCase().replace(/\s+/g, '_') + '_LOGO.png';
+                    // $scope.brandLogo = '/images/logos/GMC' + '_LOGO.png';
+                    // console.log('test', $scope.logo);
+
+                    $scope.exteriorOptions = [];
+                    $scope.interiorOptions = [];
+                    $scope.safetyOptions = [];
+
+                    $scope.calc = function(down, month) {
+                        var princ = $scope.final - down;
+                        var intr   = $scope.apr / 1200;
+                        var term  = month;
+                        var result = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
+                        return result;
+                    }
+
+                   // payment = principle * monthly interest/(1 - (1/(1+MonthlyInterest)*Months))
+
+
+
+                    angular.forEach(response.data.options, function(option) {
+                        if (option.type == 'EXTERIOR') {
+                            $scope.exteriorOptions.push(option.option);
+                        } else if (option.type == 'INTERIOR') {
+                            $scope.interiorOptions.push(option.option);
+                        } else if (option.type == 'SAFETY') {
+                            $scope.safetyOptions.push(option.option);
+                        }
+                        // console.log(option);
+                    })
+
+                    // console.log($scope.data.exteriorOptions);
+                    // console.log($scope.safetyOptions);
+
+                    // window.print();
+                });
+            })
+            console.log('testin');
+        </script>
+    
+
+</body></html>

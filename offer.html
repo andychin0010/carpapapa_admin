@@ -1,0 +1,232 @@
+<html>
+    <head>
+        <style>
+            body {
+                font-size: 0.15in
+            }
+            @media print {
+                @page {
+                    size: A4 portrait;
+                }
+            }
+            table .title {
+                text-align:center;
+                font-weight: bold;
+            }
+            td > p {
+                margin:0;
+            }
+            div.cp-table {
+                width:100%;
+                display:table;
+                margin:0;
+            }
+            td div.cp-row {
+                display:table-row
+            }
+            div.row div.cp-cell {
+                display:table-cell;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            table {
+                border-collapse:collapse;
+            }
+            table, th, td {
+                border:1px solid grey;
+            }
+        </style>
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    </head>
+    <body ng-app="carpapapa" ng-controller="summaryController" style="padding-top:0.5in; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; position:relative;">
+        <div class="container" style="font-size:0.15in">
+            <div style="width:100%">
+                <p>Prepared for: <span style="font-size:0.24in;font-weight:bold;vertical-align:text-top;margin-left:5px">{{customerName}}</span></p>
+                <div>
+                    Date: {{today | date:'MM/dd/yyyy'}}
+                </div>
+                <div>
+                    Manager: JEFF LAM
+                </div>
+                <div>
+                    Salesperson: {{salesName}}
+                </div>
+                <img style="position:absolute; right:0in; top:0.5in; max-height:1.1in; max-width:1.1in" src="/images/logos/CARPAPAPA_LOGO.png">
+            </div>
+            <br>
+            <br>
+            <div class="row" style="margin-top:20px">
+                <table style="font-size:0.15in;width:100%">
+                    <tr style="display:none">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  <tr>
+                      <td colspan="2" style="width:50%" class="title">VEHICLE</td>
+                      <td colspan="2" style="width:50%" class="title">VEHICLE OPTIONS</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2">
+                          <div class="cp-table">
+                              <div class="cp-row"><div class="cp-cell" style="width:15%">Vehicle:</div><div class="cp-cell">{{data.year}} {{data.make}} {{data.model}}</div></div>
+                              <div class="cp-row"><div class="cp-cell" style="width:15%">Miles:</div><div class="cp-cell">{{data.mileage | number:0}}</div></div>
+                              <br>
+                          </div>
+                      </td>
+                      <td colspan="2" rowspan="3" style="vertical-align:top">
+                          <div class="cp-row" ng-repeat="option in data.options"><div class="cp-cell">- {{option.option}}</div></div>
+                          <br>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" class="title">PURCHASE OPTION</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2">
+                          <div class="cp-table">
+                              <div class="cp-row"><div class="cp-cell">Vehicle Price:</div><div class="cp-cell" align="right">{{data.price | currency:$:0}}</div></div>
+                              <div ng-if="discount" class="cp-row"><div class="cp-cell">Discount:</div><div class="cp-cell" align="right">- {{discount | currency:$:0}}</div></div>
+                              <div ng-if="discount" class="cp-row"><div class="cp-cell">Final:</div><div class="cp-cell" align="right">{{final | currency:$:0}}</div></div>
+                              <br>
+                              <div class="cp-row"><div class="cp-cell">Sales Tax (10.5%)</div><div class="cp-cell" align="right">+ {{tax | currency:$:0}}</div></div>
+                              <div class="cp-row"><div class="cp-cell">Registration Fee</div><div class="cp-cell" align="right">+ {{registrationFee | currency:$:0}}</div></div>
+                              <div class="cp-row"><div class="cp-cell">Document Fee</div><div class="cp-cell" align="right" style="border-bottom:solid 1px">+ {{documentFee | currency:$:0}}</div></div>
+                              <div class="cp-row"><div class="cp-cell">Balance Due:</div><div class="cp-cell" align="right">{{total | currency:$:0}}</div></div>
+                              <br>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td colspan="4" class="title">FINANCE OPTIONS</td>
+                  </tr>
+                  <tr>
+                      <td class="title" style="vertical-align:middle">Cash Down</td>
+                      <td class="title">
+                          <p>36 months</p>
+                          <p style="font-weight:normal;font-size:0.8em">(APR:{{apr}}%)</p>
+                      </td>
+                      <td class="title">
+                          <p>48 months</p>
+                          <p style="font-weight:normal;font-size:0.8em">(APR:{{apr}}%)</p>
+                      </td>
+                      <td class="title">
+                          <p>54 months</p>
+                          <p style="font-weight:normal;font-size:0.8em">(APR:{{apr}}%)</p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td class="tight-center" style="padding:0;text-align:center">$3,000</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(3000, 36) | currency:$:0}}</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(3000, 48) | currency:$:0}}</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(3000, 54) | currency:$:0}}</td>
+                  </tr>
+                  <tr>
+                      <td class="tight-center" style="padding:0;text-align:center">$5,000</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(5000, 36) | currency:$:0}}</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(5000, 48) | currency:$:0}}</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(5000, 54) | currency:$:0}}</td>
+                  </tr>
+                  <tr>
+                      <td class="tight-center" style="padding:0;text-align:center">$7,500</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(7500, 36) | currency:$:0}}</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(7500, 48) | currency:$:0}}</td>
+                      <td class="tight-center" style="padding:0;text-align:center">{{calc(7500, 54) | currency:$:0}}</td>
+                  </tr>
+                </table>
+                <p>This summary is provided to you, our customer, to assist you in better understanding the pricing available. Amounts above are ESTIMATES ONLY and may vary
+                    based on approved credit, applicable taxes, vehicle selection, trade value(s), estimated payoff, eligibility for rebates and other factors particular to
+                    your transaction. Final payments and terms may vary. Customer agrees to pay the difference, if any, in the amount of the trade lien payoff.
+                </p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div style="float:left">
+                <p style="margin:0">x____________________________________</p>
+                <p>&nbsp&nbspBuyer&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDate</p>
+            </div>
+            <div style="float:right">
+                <p style="margin:0">x____________________________________</p>
+                <p>&nbsp&nbspSalesperson&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbspDate</p>
+            </div>
+
+            <div style="position:absolute;bottom:0.1in;width:100%">
+                <div style="font-size:0.15in">
+                    <div>&copy; CARPAPAPA AUTO GROUP - 1111 24TH AVE Seattle, WA, 98122</div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/angular/angular.min.js"></script>
+        <script src="/js/jquery/jquery-3.1.1.min.js"></script>
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
+        <script>
+            var carpapapa = angular.module("carpapapa", []);
+            carpapapa.controller("summaryController", function($scope, $http, $location) {
+                var DEFAULT_APR = 5.99;
+
+                $scope.apr = $location.search().apr ? $location.search().apr : DEFAULT_APR;
+                $scope.customerName = $location.search().customerName;
+                $scope.salesName = $location.search().salesName;
+                $scope.discount = $location.search().discount;
+
+                var discount = $location.search().discount;
+                if (!discount || discount == 0 || discount === 'undefined') {
+                    $scope.discount = null;
+                }
+
+                $scope.registrationFee=500;
+                $scope.documentFee=300;
+                $scope.tax=0;
+                $scope.today=new Date();
+
+                $http({
+                    method: 'GET',
+                    url: 'http://www.carpapapa.com:8081/products/' + $location.search().id
+                }).then(function success(response) {
+                    $scope.data = response.data;
+                    $scope.final = $scope.data.price - $scope.discount;
+                    $scope.tax = $scope.final * .105;
+                    $scope.total = $scope.final + $scope.tax + $scope.registrationFee + $scope.documentFee;
+                    $scope.brandLogo = '/images/logos/' + response.data.make.toUpperCase().replace(/\s+/g, '_') + '_LOGO.png';
+
+                    $scope.exteriorOptions = [];
+                    $scope.interiorOptions = [];
+                    $scope.safetyOptions = [];
+
+                    $scope.calc = function(down, month) {
+                        var princ = $scope.final - down;
+                        var intr   = $scope.apr / 1200;
+                        var term  = month;
+                        var result = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
+                        return result;
+                    }
+
+                   // payment = principle * monthly interest/(1 - (1/(1+MonthlyInterest)*Months))
+
+                    angular.forEach(response.data.options, function(option) {
+                        if (option.type == 'EXTERIOR') {
+                            $scope.exteriorOptions.push(option.option);
+                        } else if (option.type == 'INTERIOR') {
+                            $scope.interiorOptions.push(option.option);
+                        } else if (option.type == 'SAFETY') {
+                            $scope.safetyOptions.push(option.option);
+                        }
+                    })
+                });
+            })
+            console.log('testin');
+        </script>
+    </body>
+</html>

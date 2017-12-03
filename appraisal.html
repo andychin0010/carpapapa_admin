@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <style>
+            body {
+                font-size: 0.15in
+            }
+            @media print {
+                @page {
+                    size: A4 portrait;
+                }
+            }
+            table .title {
+                text-align:center;
+                font-weight: bold;
+            }
+            td > p {
+                margin:0;
+            }
+            div.cp-table {
+                width:100%;
+                display:table;
+                margin:0;
+            }
+            td div.cp-row {
+                display:table-row
+            }
+            div.row div.cp-cell {
+                display:table-cell;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            table {
+                border-collapse:collapse;
+            }
+            table, th, td {
+                border:1px solid grey;
+            }
+        </style>
+        <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    </head>
+    <body ng-app="carpapapa" ng-controller="appraisalController" style="padding-top:0.5in; font-family:Arial,'Helvetica Neue',Helvetica,sans-serif; position:relative;">
+        <div class="container" style="font-size:0.15in">
+            <h1 class="row" style="text-align:center; color:#80d7cf">
+                <strong style="font-size:1.5em">CARPAPAPA </strong> APPRAISAL OFFER
+            </h1>
+            <div class="row" style="padding-top:50px;">
+                <div style="text-align:center">
+                    <div><strong>Customer: </strong>{{ name }}</div>
+                    <div><strong>Phone: </strong>{{ phone }}</div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top:50px">
+                <div style="display:table; width:100%">
+                    <div style="display:table-row">
+                        <div style="display:table-cell; width:50%;">
+                            <h2 style="color:#80d7cf; text-align:center">VECHILE</h2>
+                            <div><strong>VIN: </strong>{{ vin }}</div>
+                            <div><strong>Year: </strong>{{ year }}</div>
+                            <div><strong>Make: </strong>{{ make }}</div>
+                            <div><strong>Model: </strong>{{ model }}</div>
+                            <div><strong>Color: </strong>{{ color }}</div>
+                        </div>
+                        <div style="display:table-cell; width:50%">
+                            <h2 style="color:#80d7cf; text-align:center">CONDITION</h2>
+                            <div><strong>Condition Report: </strong>{{ cr }} / 4.0</div>
+                            <div><strong>Mileage: </strong>{{ mileage | number:0}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top:350px">
+                <div style="text-align:center; font-size:0.15in">
+                    <h2>
+                        <div style="display:inline-block; vertical-align:middle; color:#80d7cf">
+                            <strong>Appraisal Offer:</strong>
+                        </div>
+                        <div style="display:inline-block; vertical-align:middle; text-align:left;">
+                            <strong style="font-size:2.5em">{{ offer | currency:"$":0 }}</strong>
+                            <div style="font-size:0.5em;">This offer is valid until the close of business on {{ today | date:"MM/dd/yyyy" }}</div>
+                        </div>
+                    </h2>
+                    <div style="text-align:center; color:#80d7cf">
+                        <div>
+                            If you purchase a Carpapapa vehicle while selling us your vehicle, you could be eligible for tax saving up to
+                        </div>
+                        <div>
+                            <strong>{{ tax | currency:"$":0 }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="position:fixed; bottom:0.1in;">
+            <div><strong>Contact: </strong>Taison</div>
+            <div><strong>Phone: </strong>(206) 602-6074</div>
+            <div><strong>Address: </strong>1111 24th AVE Seattle, WA 98122</div>
+        </div>
+        <div>
+            <img style="position:fixed; right:0in; bottom:0.1in; max-height:0.8in" src="/images/logos/CARPAPAPA_LOGO.png">
+        </div>
+        <script src="/js/angular/angular.min.js"></script>
+        <script src="/js/jquery/jquery-3.1.1.min.js"></script>
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
+        <script>
+            var carpapapa = angular.module("carpapapa", []);
+            carpapapa.controller("appraisalController", function($scope, $http, $location) {
+                $scope.name = $location.search().name ? $location.search().name : '';
+                $scope.phone = $location.search().phone ? $location.search().phone : '';
+                $scope.year = $location.search().year ? $location.search().year : '';
+                $scope.make = $location.search().make ? $location.search().make : '';
+                $scope.model = $location.search().model ? $location.search().model : '';
+                $scope.vin = $location.search().vin ? $location.search().vin : '';
+                $scope.color = $location.search().color ? $location.search().color : '';
+                $scope.mileage = $location.search().mileage ? $location.search().mileage : '';
+                $scope.cr = $location.search().cr ? $location.search().cr : '';
+                $scope.offer = $location.search().offer ? $location.search().offer : '';
+
+                $scope.today = new Date();
+
+                if ($scope.offer) {
+                    $scope.tax = $scope.offer * .105;
+                }
+
+
+                console.log('name', $scope.name);
+
+            })
+        </script>
+    </body>
+</html>

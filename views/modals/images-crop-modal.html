@@ -1,0 +1,15 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <!-- <i class="fa fa-calendar modal-icon"></i> -->
+        <!-- <h4 class="modal-title">New Event {{ asd }}</h4> -->
+    </div>
+    <div class="modal-body">
+        <!-- <p><strong>Event Title</strong></p>
+        <div class="form-group"><input type="text" placeholder="Enter Event Title" class="form-control" ng-model="name"></div> -->
+        <canvas width="100" height="100" id="canvas" image-cropper image="myImage" cropped-image="myCroppedImage" crop-width="100" crop-height="testHeight" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="close()">Closed</button>
+        <button type="button" class="btn btn-primary" ng-click="createEvent()">Add Event</button>
+    </div>
+</div>

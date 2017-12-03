@@ -1,0 +1,30 @@
+<div class="inmodal testing">
+    <div class="modal-header">
+        <!-- <i class="fa fa-calendar modal-icon"></i> -->
+        <h4 class="modal-title">Uploaded Images</h4>
+    </div>
+    <div class="modal-body">
+        <!-- <p><strong>Event Title</strong></p>
+        <div class="form-group"><input type="text" placeholder="Enter Event Title" class="form-control" ng-model="name"></div> -->
+        <!-- <canvas width="100" height="100" id="canvas" image-cropper image="myImage" cropped-image="myCroppedImage" crop-width="100" crop-height="testHeight" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas> -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6" ng-repeat="image in images" style="margin-bottom:20px">
+                    <div style="text-align:center" ng-click="editImage(image)">
+                        <img class="img-thumbnail" ng-src="{{image.path}}" style="max-width:150px; max-height:150px; display:block; margin:auto;"/>
+                        <p>(Click to Edit)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <ul>
+          <li ng-repeat="image in images">
+              {{image.id}}
+          </li>
+        </ul> -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="close()">Closed</button>
+        <button type="button" class="btn btn-primary" ng-click="createEvent()">Add Event</button>
+    </div>
+</div>

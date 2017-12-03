@@ -1,0 +1,54 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Advanced Form Elements</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a>Forms</a>
+            </li>
+            <li class="active">
+                <strong>Advanced Form Elements</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title  back-change">
+                Simple Image Crop directive for AngularJS. Enables to crop a circle or a square out of an image.
+            </div>
+            <div class="ibox-content" ng-controller="imageCrop">
+                <div class="row">
+                    <div class="col-md-12">
+                        <canvas style="display:block; margin:auto" width="1000" height="1000" id="canvas" image-cropper image="image.path" cropped-image="myCroppedImage" crop-width="cropWidth" crop-height="cropHeight" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds" enforce-file-type="jpg"></canvas>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:20px">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="overwriteImage(image.id, image.path, myCroppedImage)">Save Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Local style for demo purpose only -->
+<!-- You have to set your width/height it has to be in px -->
+<style>
+    .cropArea {
+        overflow: hidden;
+        width:400px;
+        height:300px;
+    }
+</style>
