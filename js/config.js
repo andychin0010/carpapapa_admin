@@ -194,16 +194,16 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             },
             controller: 'CPAppraisalController'
         })
-        .state('reports', {
+        .state('inventories', {
             abstract: true,
-            url: "/reports",
+            url: "/inventories",
             templateUrl: "views/common/content.html",
             resolve: {}
         })
-        .state('reports.inventories', {
-            url: "/inventories",
-            templateUrl: "views/reports.html",
-            data: { pageTitle: 'Reports' },
+        .state('inventories.inventory', {
+            url: "/inventory",
+            templateUrl: "views/inventory.html",
+            data: { pageTitle: 'Inventory' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -224,7 +224,33 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     ]);
                 }
             },
-            controller: 'CPInventoriesController',
+            controller: 'CPInventoriesInventoryController',
+        })
+        .state('inventories.history', {
+            url: "/history",
+            templateUrl: "views/history.html",
+            data: { pageTitle: 'History' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        }
+                    ])
+                }
+            },
+            controller: 'CPInventoriesHistoryController',
         })
 }
 angular
