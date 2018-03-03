@@ -1,7 +1,7 @@
 angular
     .module('inspinia')
-    .controller('CPProductController', ['$scope', '$timeout', '$q', '$stateParams', '$location', '$window', '$filter', '$uibModal', '$state', 'CPProductService', 'CPDataService',
-    function($scope, $timeout, $q, $stateParams, $location, $window, $filter, $uibModal, $state, CPProductService, CPDataService) {
+    .controller('CPProductController', ['$scope', '$timeout', '$q', '$stateParams', '$location', '$window', '$filter', '$uibModal', '$state', 'Upload', 'CPProductService', 'CPDataService',
+    function($scope, $timeout, $q, $stateParams, $location, $window, $filter, $uibModal, $state, Upload, CPProductService, CPDataService) {
         var imageUpdated = true;
 
 
@@ -202,7 +202,9 @@ angular
             var promises = [];
             createImageLoading();
 
+            console.log('scope', $scope.$parent);
             console.log('imgFiles', imgFiles);
+            console.log('type', imgType);
             angular.forEach(imgFiles, function(imgFile) {
                 promises.push(CPProductService.addProductImage(product.id, imgFile, imgType))
             })
@@ -215,6 +217,16 @@ angular
                     // openImageModal();
                 }
             );
+        }
+
+        $scope.myUpload = function(file, files, events) {
+            console.log('file!!!!', file);
+            console.log('files!!!!!', files);
+            console.log('events', events);
+        }
+
+        $scope.test = function(testFile, testInvalid) {
+            console.log('testing!!!', testFile);
         }
 
         $scope.updateImage = function(id, type, order) {
@@ -282,6 +294,10 @@ angular
 
         $scope.print = function(id) {
             $window.open('/summary.html#?id=' + id, '_blank');
+        }
+
+        $scope.retailView = function(id) {
+            $window.open('/retail_view.html#?id=' + id, '_blank');
         }
 
         $scope.offerSummary = function(productId, offer) {
