@@ -157,7 +157,7 @@ angular
             })
         }
 
-        this.searchProducts = function(limit, offset, state, make, model, exColor, year) {
+        this.searchProducts = function(limit, offset, state, make, model, exColor, year, vin) {
             var url = HOST + '/products/search?';
 
             if (limit) { url += '&limit=' + limit; }
@@ -167,6 +167,7 @@ angular
             if (model) { url += '&model=' + model; }
             if (exColor) { url += '&exColor=' + exColor; }
             if (year) { url += '&year=' + year; }
+            if (vin) { url += '&vin=' + vin; }
 
             console.log('testi', url);
             return $http({
@@ -184,6 +185,30 @@ angular
             console.log('delete', url);
             return $http({
                 method: 'POST',
+                url: url
+            }).then(function success(response) {
+                return response.data;
+            }, function error(response) {
+                return null;
+            })
+        }
+
+        this.createProductQRCode = function(vin) {
+            var url = HOST + '/qr/' + vin + '/create';
+            return $http({
+                method: 'POST',
+                url: url
+            }).then(function success(response) {
+                return response.data;
+            }, function error(response) {
+                return null;
+            })
+        }
+
+        this.getInventoryChecklist = function() {
+            var url = HOST + '/qr/checklist';
+            return $http({
+                method: 'GET',
                 url: url
             }).then(function success(response) {
                 return response.data;

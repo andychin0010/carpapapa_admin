@@ -226,6 +226,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             },
             controller: 'CPInventoriesInventoryController',
         })
+        .state('inventories.ads', {
+            url: "/ads",
+            templateUrl: "views/ads.html",
+            data: { pageTitle: 'Ads' },
+            controller: 'CPInventoriesAdsController'
+        })
         .state('inventories.history', {
             url: "/history",
             templateUrl: "views/history.html",

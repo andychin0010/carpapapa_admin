@@ -22,6 +22,85 @@
                 <uib-tabset>
                     <uib-tab>
                         <uib-tab-heading>
+                            Inventory Checklist
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div style="margin:10px 0 20px 0">
+                                        <span class="label label-default">TOTAL : {{(missingInventory.length ? missingInventory.length : 0)
+                                            + (unknownInventory.length ? unknownInventory.length : 0)
+                                            + (missingVin.length ? missingVin.length : 0)
+                                            + (inInventory.length ? inInventory.length : 0)}}</span>
+                                        <span class="label label-danger">MISSING : {{missingInventory.length ? missingInventory.length : 0}}</span>
+                                        <span class="label label-info">UNKNOWN INVENTORY : {{unknownInventory.length ? unknownInventory.length : 0}}</span>
+                                        <span class="label label-warning">MISSING VIN : {{missingVin.length ? missingVin.length : 0}}</span>
+                                        <span class="label label-primary">IN INVENTORY : {{inInventory.length ? inInventory.length : 0}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>VIN</th>
+                                            <th>Model</th>
+                                            <th>Exterior</th>
+                                            <th>Interior</th>
+                                            <th>Mileage</th>
+                                            <th>Price</th>
+                                            <th>Last Check</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="product in missingInventory">
+                                            <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.vin}}</a></td>
+                                            <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.year}} {{product.make}} {{product.model}}</a></td>
+                                            <td>{{product.exColor}}</td>
+                                            <td>{{product.inColor}}</td>
+                                            <td>{{product.mileage | number:0}}</td>
+                                            <td>{{product.price | currency:"$":0}}</td>
+                                            <td>{{product.lastCheckTimestamp | date : "short"}}</td>
+                                            <td><div class="label label-danger">MISSING</div></td>
+                                        </tr>
+                                        <tr ng-repeat="product in unknownInventory">
+                                            <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.vin}}</a></td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>{{product.lastCheckTimestamp | date : "short"}}</td>
+                                            <td><div class="label label-info">UNKNOWN</div></td>
+                                        </tr>
+                                        <tr ng-repeat="product in missingVin">
+                                            <td>N/A</td>
+                                            <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.year}} {{product.make}} {{product.model}}</a></td>
+                                            <td>{{product.exColor}}</td>
+                                            <td>{{product.inColor}}</td>
+                                            <td>{{product.mileage | number:0}}</td>
+                                            <td>{{product.price | currency:"$":0}}</td>
+                                            <td></td>
+                                            <td><div class="label label-warning">Missing VIN</div></i></td>
+                                        </tr>
+                                        <tr ng-repeat="product in inInventory">
+                                            <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.vin}}</a></td>
+                                            <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.year}} {{product.make}} {{product.model}}</a></td>
+                                            <td>{{product.exColor}}</td>
+                                            <td>{{product.inColor}}</td>
+                                            <td>{{product.mileage | number:0}}</td>
+                                            <td>{{product.price | currency:"$":0}}</td>
+                                            <td>{{product.lastCheckTimestamp | date : "short"}}</td>
+                                            <td><div class="label label-primary">IN INVENTORY</div></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading>
                             Inventory
                         </uib-tab-heading>
                         <div class="panel-body">

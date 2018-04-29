@@ -306,6 +306,14 @@ angular
             $window.open('/offer.html#?id=' + productId + '&customerName=' + offer.customerName.toUpperCase() + '&salesName=' + offer.salesName.toUpperCase() + '&discount=' + offer.discount + '&apr=' + offer.apr, '_blank');
         }
 
+        $scope.getQRCode = function(vin) {
+            CPProductService.createProductQRCode(vin).then(
+                function(data) {
+                    $window.open(data.url, '_blank');
+                }
+            )
+        }
+
         function createLoading() {
             $scope.createStatus = 'fa fa-refresh fa-spin';
         }

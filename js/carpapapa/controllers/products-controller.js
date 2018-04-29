@@ -52,7 +52,7 @@ angular
                     }
                 } else {
                     if (/^\d+$/.test(searchTerm) && (parseInt(searchTerm) > 1000)) {
-                        CPProductService.searchProducts(PAGE_LIMIT, PAGE_LIMIT * ($scope.currentPage - 1), undefined, undefined, undefined, undefined, searchTerm).then(
+                        CPProductService.searchProducts(PAGE_LIMIT, PAGE_LIMIT * ($scope.currentPage - 1), undefined, undefined, undefined, undefined, undefined, searchTerm).then(
                             function(data) {
                                 console.log(data);
                                 $scope.products = data.products;
@@ -60,7 +60,7 @@ angular
                             }
                         )
                     } else {
-                        CPProductService.searchProducts(PAGE_LIMIT, PAGE_LIMIT * ($scope.currentPage - 1), undefined, undefined, searchTerm).then(
+                        CPProductService.searchProducts(PAGE_LIMIT, PAGE_LIMIT * ($scope.currentPage - 1), undefined, undefined, searchTerm, undefined, undefined, searchTerm).then(
                             function(data) {
                                 console.log(data);
                                 $scope.products = data.products;

@@ -1,0 +1,76 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Product Ads</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <strong>Ads</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <uib-tabset>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Advertisements
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <fieldset class="form-horizontal">
+                                <div class="form-group"><label class="col-sm-2 control-label">Position 1:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.position1"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Price 1:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.price1"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Position 2:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.position2"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Price 2:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.price2"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Position 3:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.position3"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Price 3:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.price3"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Position 4:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.position4"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Price 4:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.price4"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Position 5:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.position5"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Price 5:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.price5"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Position 6:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.position6"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Price 6:</label>
+                                    <div class="col-sm-10"><input type="number" class="form-control" ng-model="ad.price6"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="pull-right">
+                                            <button ng-if="!id" class="btn btn-primary" type="submit" ng-click="createAd(ad)">Create</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+
+</div>
