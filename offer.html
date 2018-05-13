@@ -189,13 +189,28 @@
                 $scope.registrationFee=500;
                 $scope.documentFee=300;
                 $scope.tax=0;
-                $scope.today=new Date();
+
+                if ($location.search().date) {
+                    $scope.today = $location.search().date;
+                } else {
+                    $scope.today=new Date();
+                }
+
 
                 $http({
                     method: 'GET',
                     url: 'http://www.carpapapa.com:8081/products/' + $location.search().id
                 }).then(function success(response) {
                     $scope.data = response.data;
+
+                    if ($location.search().price) {
+                        $scope.data.price = $location.search().price;
+                    }
+
+                    if ($location.search().mileage) {
+                        $scope.data.mileage = $location.search().mileage;
+                    }
+
                     $scope.final = $scope.data.price - $scope.discount;
                     $scope.tax = $scope.final * .105;
                     $scope.total = $scope.final + $scope.tax + $scope.registrationFee + $scope.documentFee;

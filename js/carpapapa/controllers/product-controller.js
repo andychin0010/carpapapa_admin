@@ -1,7 +1,7 @@
 angular
     .module('inspinia')
-    .controller('CPProductController', ['$scope', '$timeout', '$q', '$stateParams', '$location', '$window', '$filter', '$uibModal', '$state', 'Upload', 'CPProductService', 'CPDataService',
-    function($scope, $timeout, $q, $stateParams, $location, $window, $filter, $uibModal, $state, Upload, CPProductService, CPDataService) {
+    .controller('CPProductController', ['$scope', '$timeout', '$q', '$stateParams', '$location', '$window', '$filter', '$uibModal', '$state', 'Upload', 'CPProductService', 'CPDataService', 'CPOfferService',
+    function($scope, $timeout, $q, $stateParams, $location, $window, $filter, $uibModal, $state, Upload, CPProductService, CPDataService, CPOfferService) {
         var imageUpdated = true;
 
 
@@ -162,10 +162,13 @@ angular
                     })
                 }
             )
-        }
 
-        $scope.testing = function() {
-                console.log('testingtesting');
+            CPOfferService.getOffersByProductId($scope.id).then(
+                function(offers) {
+                    console.log('offers', offers);
+                    $scope.prevOffers = offers;
+                }
+            )
         }
 
         $scope.createProduct = function(product) {
@@ -301,9 +304,26 @@ angular
         }
 
         $scope.offerSummary = function(productId, offer) {
+            offer.product = {};
+            offer.product.id = productId;
+
             console.log('offer product', productId);
             console.log('offer', offer);
+            CPOfferService.createOffer(offer);
             $window.open('/offer.html#?id=' + productId + '&customerName=' + offer.customerName.toUpperCase() + '&salesName=' + offer.salesName.toUpperCase() + '&discount=' + offer.discount + '&apr=' + offer.apr, '_blank');
+        }
+
+        $scope.prevOfferSummary = function(offer) {
+            console.log('test', offer);
+            $window.open('/offer.html#?id=' + offer.product.id +
+            '&customerName=' + offer.customerName.toUpperCase() +
+            '&salesName=' + offer.salesName.toUpperCase() +
+            '&discount=' + offer.discount +
+            '&apr=' + offer.apr +
+            '&price=' + offer.product.price +
+            '&mileage=' + offer.product.mileage +
+            '&date=' + offer.creationTimestamp
+            , '_blank');
         }
 
         $scope.getQRCode = function(vin) {

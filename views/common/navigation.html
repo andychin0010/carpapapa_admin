@@ -38,17 +38,25 @@
             <li ui-sref-active="active">
                 <a ui-sref="layouts"><i class="fa fa-diamond"></i> <span class="nav-label">{{ 'LAYOUTS' | translate }}</span> </a>
             </li> -->
-
+            <li ng-class="{active: $state.includes('admin')}">
+                <a href="#"><i class="fa fa-bar-chart-o"></i><span class="nav-label">Admin</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('admin')}">
+                    <li ui-sref-active="active"><a ui-sref="admin.history">History</a></li>
+                    <li ui-sref-active="active"><a ui-sref="admin.product_create">Create</a></li>
+                </ul>
+            </li>
             <li ng-class="{active: $state.includes('inventories')}">
                 <a href="#"><i class="fa fa-bar-chart-o"></i><span class="nav-label">Inventories</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('inventories')}">
                     <li ui-sref-active="active"><a ui-sref="inventories.inventory">Inventory</a></li>
-                    <li ui-sref-active="active"><a ui-sref="inventories.history">History</a></li>
                     <li ui-sref-active="active"><a ui-sref="inventories.ads">Ads</a></li>
                 </ul>
             </li>
-            <li ui-sref-active="active">
-                <a ui-sref="commerce.products_grid"><i class="fa fa-car"></i> <span class="nav-label">Products</span> </a>
+            <li ng-class="{active: $state.includes('commerce')}">
+                <a href="#"><i class="fa fa-car"></i><span class="nav-label">Products</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('commerce')}">
+                    <li ui-sref-active="active"><a ui-sref="commerce.products_grid">Search</a></li>
+                </ul>
             </li>
             <li ui-sref-active="active">
                 <a ui-sref="trade_in.appraisal"><i class="fa fa-balance-scale"></i> <span class="nav-label">Appraisal</span> </a>

@@ -3,9 +3,9 @@ angular
     .controller('CPInventoriesInventoryController', ['$scope', '$timeout', '$q', '$stateParams', '$location', '$window', '$filter', '$uibModal', 'CPProductService', 'DTOptionsBuilder',
     function($scope, $timeout, $q, $stateParams, $location, $window, $filter, $uibModal, CPProductService, DTOptionsBuilder) {
 
-        setInterval(function(){
-            checkInventory();
-        },60000)
+        // setInterval(function(){
+        //     checkInventory();
+        // },60000)
 
         $scope.inventoryProducts = {};
         $scope.missingVin = [];

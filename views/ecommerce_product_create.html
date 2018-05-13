@@ -1,0 +1,153 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Product edit</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a>E-commerce</a>
+            </li>
+            <li class="active">
+                <strong ng-if="id">Product update</strong>
+                <strong ng-if="!id">Product create</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div ng-if="id" class="row" style="padding-bottom:20px">
+        <div class="col-md-6">
+            <div>
+                <button type="button" ng-click="print(id)" class="btn btn-block btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Summary</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <button type="button" ng-click="retailView(id)" class="btn btn-block btn-primary"><i class="fa fa-file-text-o" aria-hidden="true"></i> Retail View</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <uib-tabset>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Product info
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <fieldset class="form-horizontal">
+                                <div class="form-group"><label class="col-sm-2 control-label">Live:</label>
+                                    <div class="col-sm-10">
+                                        <div class="switch">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" checked class="onoffswitch-checkbox" id="onoff" ng-init="product.state = product.state || false" ng-model="product.state">
+                                                <label class="onoffswitch-label" for="onoff">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Status:</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ng-init="product.status = product.status || 'INVENTORY'" ng-model="product.status">
+                                            <option>INVENTORY</option>
+                                            <option>PENDING</option>
+                                            <option>SOLD</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Make:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'BMW'" class="form-control" ng-model="product.make" uib-typeahead="brand for brand in manufacturerBrands | filter:$viewValue | limitTo:8" style="text-transform:uppercase"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Model:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'328i'" class="form-control" ng-model="product.model"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* VIN: </label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="'19UYA31581L000000'" ng-model="product.vin" style="text-transform:uppercase">
+
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-disabled="!product.vin || (product.vin.length <= 16)">QR Code <span class="caret"></span></button>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="javascript:void(0)" ng-click="getQRCode(product.vin)">FOR CAR</a></li>
+                                                    <li><a href="javascript:void(0)" ng-click="getQRCode(product.vin)">FOR KEY</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" ng-click="getQRCode(product.vin)" ng-disabled="!product.vin">QR Code</button>
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Exterior Color:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'BLACK'" class="form-control" ng-model="product.exColor" style="text-transform:uppercase"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Interior Color:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'BLACK'" class="form-control" ng-model="product.inColor" style="text-transform:uppercase"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Year:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'2017'" class="form-control" ng-model="product.year"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Mileage:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'2000'" class="form-control" ng-model="product.mileage"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">* Price:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'2000'" class="form-control" ng-model="product.price"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Engine:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'3.6 V6'" class="form-control" ng-model="product.engine"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Horse Power:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'355'" class="form-control" ng-model="product.horsePower"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Torque:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'300'" class="form-control" ng-model="product.torque"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Drivetrain:</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ng-model="product.drivetrain">
+                                            <option>Front Wheel Drive</option>
+                                            <option>Rear Wheel Drive</option>
+                                            <option>Four Wheel Drive</option>
+                                            <option>All Wheel Drive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">MPG City:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'19'" class="form-control" ng-model="product.mpgCity"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">MPG Highway:</label>
+                                    <div class="col-sm-10"><input type="text" placeholder="'23'" class="form-control" ng-model="product.mpgHighway"></div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Description:</label>
+                                    <div class="col-sm-10">
+                                        <!-- <div summernote class="summernote"  ng-model="product.description">
+                                        </div> -->
+                                        <textarea class="form-control" rows="5" ng-model="product.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="pull-right">
+                                            <button class="btn btn-white" type="submit">Cancel</button>
+                                            <button ng-if="!id" class="btn btn-primary" type="submit" ng-click="createProduct(product)"><i ng-class="createStatus" aria-hidden="true"></i> Create</button>
+                                            <button ng-if="id" class="btn btn-danger" type="submit" ng-click="deleteProductById(id)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                            <button ng-if="id" class="btn btn-primary" type="submit" ng-click="updateProduct(product)"><i ng-class="updateStatus" aria-hidden="true"></i> Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+
+</div>

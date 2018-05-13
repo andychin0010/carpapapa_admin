@@ -75,6 +75,63 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('admin', {
+            abstract: true,
+            url: "/admin",
+            templateUrl: "views/common/content.html",
+            resolve: {}
+        })
+        .state('admin.product_create', {
+            url: "/product",
+            templateUrl: "views/ecommerce_product_create.html",
+            data: { pageTitle: 'Product create' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'summernote',
+                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
+                        },
+                        {
+                            files: ['js/plugins/jasny/jasny-bootstrap.min.js', 'css/plugins/jasny/jasny-bootstrap.min.css' ]
+                        },
+                        {
+                            files: ['css/plugins/touchspin/jquery.bootstrap-touchspin.min.css', 'js/plugins/touchspin/jquery.bootstrap-touchspin.min.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        }
+                    ]);
+                }
+            },
+            controller: 'CPProductController'
+        })
+        .state('admin.history', {
+            url: "/history",
+            templateUrl: "views/history.html",
+            data: { pageTitle: 'History' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        }
+                    ])
+                }
+            },
+            controller: 'CPInventoriesHistoryController',
+        })
         .state('commerce', {
             abstract: true,
             url: "/commerce",
@@ -105,34 +162,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             data: { pageTitle: 'Customers' },
             controller: 'CPCustomersController'
         })
-        .state('commerce.product_create', {
-            url: "/product",
-            templateUrl: "views/ecommerce_product.html",
-            data: { pageTitle: 'Product create' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
-                        },
-                        {
-                            files: ['js/plugins/jasny/jasny-bootstrap.min.js', 'css/plugins/jasny/jasny-bootstrap.min.css' ]
-                        },
-                        {
-                            files: ['css/plugins/touchspin/jquery.bootstrap-touchspin.min.css', 'js/plugins/touchspin/jquery.bootstrap-touchspin.min.js']
-                        },
-                        {
-                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
-                        }
-                    ]);
-                }
-            },
-            controller: 'CPProductController'
-        })
         .state('commerce.product_update', {
             url: "/product/:id",
-            templateUrl: "views/ecommerce_product.html",
+            templateUrl: "views/ecommerce_product_update.html",
             data: { pageTitle: 'Product update' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -231,32 +263,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/ads.html",
             data: { pageTitle: 'Ads' },
             controller: 'CPInventoriesAdsController'
-        })
-        .state('inventories.history', {
-            url: "/history",
-            templateUrl: "views/history.html",
-            data: { pageTitle: 'History' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables',
-                            files: ['js/plugins/dataTables/angular-datatables.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables.buttons',
-                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
-                        }
-                    ])
-                }
-            },
-            controller: 'CPInventoriesHistoryController',
         })
 }
 angular
