@@ -70,6 +70,7 @@
                   <tr>
                       <td colspan="2">
                           <div class="cp-table">
+                              <div class="cp-row"><div class="cp-cell" style="width:15%">VIN:</div><div class="cp-cell">{{data.vin}}</div></div>
                               <div class="cp-row"><div class="cp-cell" style="width:15%">Vehicle:</div><div class="cp-cell">{{data.year}} {{data.make}} {{data.model}}</div></div>
                               <div class="cp-row"><div class="cp-cell" style="width:15%">Miles:</div><div class="cp-cell">{{data.mileage | number:0}}</div></div>
                               <br>
@@ -175,6 +176,7 @@
             var carpapapa = angular.module("carpapapa", []);
             carpapapa.controller("summaryController", function($scope, $http, $location) {
                 var DEFAULT_APR = 5.99;
+                var DEFAULT_TAX = .105;
 
                 $scope.apr = $location.search().apr ? $location.search().apr : DEFAULT_APR;
                 $scope.customerName = $location.search().customerName;
@@ -184,6 +186,13 @@
                 var discount = $location.search().discount;
                 if (!discount || discount == 0 || discount === 'undefined') {
                     $scope.discount = null;
+                }
+
+                var salesTax = $location.search().tax;
+                if (!salesTax || salesTax == 0 || salesTax === 'undefined') {
+                    salesTax = DEFAULT_TAX;
+                } else {
+                    salesTax = salesTax / 100
                 }
 
                 $scope.registrationFee=500;
@@ -199,9 +208,11 @@
 
                 $http({
                     method: 'GET',
-                    url: 'http://www.carpapapa.com:8081/products/' + $location.search().id
+                    url: 'http://localhost:8081/products/' + $location.search().id
                 }).then(function success(response) {
                     $scope.data = response.data;
+
+                    console.log('data', response.data);
 
                     if ($location.search().price) {
                         $scope.data.price = $location.search().price;
@@ -212,7 +223,7 @@
                     }
 
                     $scope.final = $scope.data.price - $scope.discount;
-                    $scope.tax = $scope.final * .105;
+                    $scope.tax = $scope.final * salesTax;
                     $scope.total = $scope.final + $scope.tax + $scope.registrationFee + $scope.documentFee;
                     $scope.brandLogo = '/images/logos/' + response.data.make.toUpperCase().replace(/\s+/g, '_') + '_LOGO.png';
 

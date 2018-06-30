@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Reports</h2>
@@ -49,6 +50,7 @@
                                             <th>Mileage</th>
                                             <th>Price</th>
                                             <th>Last Check</th>
+                                            <th>Description</th>
                                             <th>Status</th>
                                         </tr>
                                         </thead>
@@ -58,9 +60,10 @@
                                             <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.year}} {{product.make}} {{product.model}}</a></td>
                                             <td>{{product.exColor}}</td>
                                             <td>{{product.inColor}}</td>
-                                            <td>{{product.mileage | number:0}}</td>
+                                            <td>{{product.mileage | number:0}}mi</td>
                                             <td>{{product.price | currency:"$":0}}</td>
                                             <td>{{product.lastCheckTimestamp | date : "short"}}</td>
+                                            <td>{{product.description | textTrim}}</td>
                                             <td><div class="label label-danger">MISSING</div></td>
                                         </tr>
                                         <tr ng-repeat="product in unknownInventory">
@@ -71,6 +74,7 @@
                                             <td>N/A</td>
                                             <td>N/A</td>
                                             <td>{{product.lastCheckTimestamp | date : "short"}}</td>
+                                            <td>N/A</td>
                                             <td><div class="label label-info">UNKNOWN</div></td>
                                         </tr>
                                         <tr ng-repeat="product in missingVin">
@@ -78,9 +82,10 @@
                                             <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.year}} {{product.make}} {{product.model}}</a></td>
                                             <td>{{product.exColor}}</td>
                                             <td>{{product.inColor}}</td>
-                                            <td>{{product.mileage | number:0}}</td>
+                                            <td>{{product.mileage | number:0}}mi</td>
                                             <td>{{product.price | currency:"$":0}}</td>
                                             <td></td>
+                                            <td>{{product.description | textTrim}}</td>
                                             <td><div class="label label-warning">Missing VIN</div></i></td>
                                         </tr>
                                         <tr ng-repeat="product in inInventory">
@@ -88,9 +93,10 @@
                                             <td><a href="#/commerce/product/{{ product.id }}" target="_blank">{{product.year}} {{product.make}} {{product.model}}</a></td>
                                             <td>{{product.exColor}}</td>
                                             <td>{{product.inColor}}</td>
-                                            <td>{{product.mileage | number:0}}</td>
+                                            <td>{{product.mileage | number:0}}mi</td>
                                             <td>{{product.price | currency:"$":0}}</td>
                                             <td>{{product.lastCheckTimestamp | date : "short"}}</td>
+                                            <td>{{product.description | textTrim}}</td>
                                             <td><div class="label label-primary">IN INVENTORY</div></td>
                                         </tr>
                                         </tbody>
@@ -136,7 +142,7 @@
                                             <td><a ng-href="#/commerce/product/{{ product.id }}" target="_blank">{{ product.model }}</a></td>
                                             <td>{{ product.make }}</td>
                                             <td>{{ product.year }}</td>
-                                            <td>{{ product.mileage | number:0 }}</td>
+                                            <td>{{ product.mileage | number:0 }}mi</td>
                                             <td>{{ product.price | currency }}</td>
                                             <td>{{ product.vin }}</td>
                                             <td><span tooltip-placement="left" uib-tooltip="{{ product.description }}">{{ product.description | textTrim }}</span></td>

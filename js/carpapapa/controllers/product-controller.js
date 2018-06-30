@@ -25,7 +25,7 @@ angular
         $scope.selectedSafetyOptions = {};
         $scope.selectedExteriorOptions = {};
         $scope.selectedInteriorOptions = {};
-        $scope.offer = {apr: 5.99};
+        $scope.offer = {apr: 5.99, tax: 10.5};
         $scope.temp = true;
         $scope.showImageTab = CPDataService.getShowImageTab();
         $scope.timeStamp = Date.now();
@@ -310,7 +310,13 @@ angular
             console.log('offer product', productId);
             console.log('offer', offer);
             CPOfferService.createOffer(offer);
-            $window.open('/offer.html#?id=' + productId + '&customerName=' + offer.customerName.toUpperCase() + '&salesName=' + offer.salesName.toUpperCase() + '&discount=' + offer.discount + '&apr=' + offer.apr, '_blank');
+            $window.open('/offer.html#?id=' + productId +
+            '&customerName=' + offer.customerName.toUpperCase() +
+            '&salesName=' + offer.salesName.toUpperCase() +
+            '&discount=' + offer.discount +
+            '&apr=' + offer.apr +
+            '&tax=' + offer.tax
+            , '_blank');
         }
 
         $scope.prevOfferSummary = function(offer) {
@@ -320,6 +326,7 @@ angular
             '&salesName=' + offer.salesName.toUpperCase() +
             '&discount=' + offer.discount +
             '&apr=' + offer.apr +
+            '&tax=' + offer.tax +
             '&price=' + offer.product.price +
             '&mileage=' + offer.product.mileage +
             '&date=' + offer.creationTimestamp
