@@ -11,27 +11,35 @@ angular
         $scope.missingVin = [];
         var productsMap = {};
 
+        // $scope.inventoryChecklistDtOptions = DTOptionsBuilder.newOptions()
+        //     .withDisplayLength(100);
+        //
+        // $scope.keyChecklistDtOptions = DTOptionsBuilder.newOptions()
+        //     .withDisplayLength(100);
+
         // Inventory Datatable
-        $scope.inventoryDtOptions = DTOptionsBuilder.newOptions()
-            .withDisplayLength(100)
-            .withDOM('<"html5buttons"B>lTfgitp')
-            .withButtons([
-                {extend: 'copy'},
-                {extend: 'csv'},
-                {extend: 'excel', title: 'ExampleFile'},
-                {extend: 'pdf', title: 'ExampleFile'},
+        console.log('testing', DTOptionsBuilder);
+        console.log($scope.inventoryDtOptions);
+        $scope.inventoryDtOptions = DTOptionsBuilder.newOptions().withDisplayLength(100);
 
-                {extend: 'print',
-                    customize: function (win){
-                        $(win.document.body).addClass('white-bg');
-                        $(win.document.body).css('font-size', '10px');
-
-                        $(win.document.body).find('table')
-                            .addClass('compact')
-                            .css('font-size', 'inherit');
-                    }
-                }
-            ]);
+            // .withDOM('<"html5buttons"B>lTfgitp');
+            // .withButtons([
+            //     {extend: 'copy'},
+            //     {extend: 'csv'},
+            //     {extend: 'excel', title: 'ExampleFile'},
+            //     {extend: 'pdf', title: 'ExampleFile'},
+            //
+            //     {extend: 'print',
+            //         customize: function (win){
+            //             $(win.document.body).addClass('white-bg');
+            //             $(win.document.body).css('font-size', '10px');
+            //
+            //             $(win.document.body).find('table')
+            //                 .addClass('compact')
+            //                 .css('font-size', 'inherit');
+            //         }
+            //     }
+            // ]);
 
         CPProductService.getInventoryProducts().then(
             function(data) {
@@ -49,15 +57,29 @@ angular
             }
         )
 
-        function checkInventory() {
-            $scope.inInventory = [];
-            $scope.missingInventory = [];
-            $scope.unknownInventory = [];
+        CPProductService.getKeyManagements().then(
+            function(data) {
+                $scope.keyManagements = data;
+                console.log('keyManagements', $scope.keyManagements);
+            }
+        )
 
+        CPProductService.getAvailableLocations().then(
+            function(data) {
+                console.log('locations', data);
+            }
+        )
+
+        function checkInventory() {
             var currentTime = Date.now();
 
             CPProductService.getInventoryChecklist().then(
                 function(data) {
+                    console.log('testing', data);
+                    $scope.inInventory = [];
+                    $scope.missingInventory = [];
+                    $scope.unknownInventory = [];
+
                     angular.forEach(data, function(productCheck) {
                         if (productCheck.vin in productsMap) {
                             productsMap[productCheck.vin].lastCheckTimestamp = productCheck.lastCheckTimestamp;

@@ -169,7 +169,6 @@ angular
             if (year) { url += '&year=' + year; }
             if (vin) { url += '&vin=' + vin; }
 
-            console.log('testi', url);
             return $http({
                 method: 'GET',
                 url: url
@@ -210,6 +209,52 @@ angular
             return $http({
                 method: 'GET',
                 url: url
+            }).then(function success(response) {
+                return response.data;
+            }, function error(response) {
+                return null;
+            })
+        }
+
+        this.getKeyManagements = function() {
+            var url = HOST + '/key_managements';
+            return $http({
+                method: 'GET',
+                url: url
+            }).then(function success(response) {
+                return response.data;
+            }, function error(response) {
+                return null;
+            })
+        }
+
+        this.getAvailableLocations = function() {
+            var url = HOST + '/key_managements/available_locations';
+            return $http({
+                method: 'GET',
+                url: url
+            }).then(function success(response) {
+                return response.data;
+            }, function error(response) {
+                return null;
+            })
+        }
+
+        this.addLocation = function(vin, location) {
+            return $http({
+                method: 'POST',
+                url: HOST + '/key_managements/create?vin=' + vin + '&location=' + location
+            }).then(function success(response) {
+                return response.data;
+            }, function error(response) {
+                return null;
+            })
+        }
+
+        this.deleteLocation = function(vin, location) {
+            return $http({
+                method: 'POST',
+                url: HOST + '/key_managements/vins/' + vin + '/locations/' + location + '/delete'
             }).then(function success(response) {
                 return response.data;
             }, function error(response) {

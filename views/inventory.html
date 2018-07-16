@@ -40,6 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <!-- <table datatable="ng" dt-options="inventoryDtOptions"  class="table table-striped table-bordered table-hover dataTables-example"> -->
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -98,6 +99,47 @@
                                             <td>{{product.lastCheckTimestamp | date : "short"}}</td>
                                             <td>{{product.description | textTrim}}</td>
                                             <td><div class="label label-primary">IN INVENTORY</div></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            Key Checklist
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <table datatable="ng" dt-options="inventoryDtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                        <tr>
+                                            <th>VIN</th>
+                                            <th>Model</th>
+                                            <th>Exterior</th>
+                                            <th>Interior</th>
+                                            <th>Position</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="keyManagement in keyManagements">
+                                            <td>
+                                                <a href="#/commerce/product/{{ keyManagement.product.id }}" target="_blank">{{ keyManagement.product.vin }}</a>
+                                            </td>
+                                            <td>
+                                                <a href="#/commerce/product/{{ keyManagement.product.id }}" target="_blank">{{ keyManagement.product.year }} {{ keyManagement.product.make }} {{ keyManagement.product.model }}</a>
+                                            </td>
+                                            <td>
+                                                {{ keyManagement.product.exColor }}
+                                            </td>
+                                            <td>
+                                                {{ keyManagement.product.inColor }}
+                                            </td>
+                                            <td>
+                                                {{ keyManagement.position }}
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

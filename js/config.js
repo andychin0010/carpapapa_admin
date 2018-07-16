@@ -79,7 +79,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             abstract: true,
             url: "/admin",
             templateUrl: "views/common/content.html",
-            resolve: {}
+            resolve: {},
+            controller: 'CPKeyManagementController'
         })
         .state('admin.product_create', {
             url: "/product",
@@ -131,6 +132,31 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             },
             controller: 'CPInventoriesHistoryController',
+        })
+        .state('admin.key_management', {
+            url: "/key",
+            templateUrl: "views/key_management.html",
+            data: { pageTitle: 'key_management' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        }
+                    ]);
+                }
+            }
         })
         .state('commerce', {
             abstract: true,
